@@ -23,4 +23,12 @@ public class BranchController {
         log.info(String.valueOf(id));
         return branchService.getBranchByBusinessId(id);
     }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/branch/{id}")
+    @ResponseBody
+    public Optional<Branch> getBranchById(@PathVariable Integer id){
+        log.info(String.valueOf(id));
+        return branchService.getBranchById(id);
+    }
 }

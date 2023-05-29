@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -23,5 +24,10 @@ public class BranchServiceImpl implements BranchService{
                id.equals(b.getBusiness().getId())).collect(Collectors.toList());
 
         return branchList;
+    }
+
+    @Override
+    public Optional<Branch> getBranchById(Integer id) {
+        return branchRepository.findById(id);
     }
 }
