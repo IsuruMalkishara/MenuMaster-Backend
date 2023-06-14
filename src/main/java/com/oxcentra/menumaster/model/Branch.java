@@ -32,4 +32,7 @@ public class Branch {
 
     @Column(name="qrcode")
     private String qrcode;
+
+    @Column(name="background")
+    private String background;
 }

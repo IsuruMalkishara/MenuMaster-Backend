@@ -12,4 +12,10 @@ public interface BackgroundService {
     Boolean updateBackgroundByBusinessId(BackgroundDto backgroundDto);
 
     Boolean removeBackgroundByBusinessId(Integer id);
+
+    BackgroundDto getBackgroundByBranchId(Integer id);
+
+    Boolean updateBackgroundByBranchId(BackgroundDto backgroundDto);
+
+    Boolean removeBackgroundByBranchId(Integer id);
 }
