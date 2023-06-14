@@ -31,4 +31,30 @@ public class BranchController {
         log.info(String.valueOf(id));
         return branchService.getBranchById(id);
     }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/branch")
+    @ResponseBody
+    public Boolean addBranch(@RequestBody Branch branch){
+        log.info(String.valueOf(branch));
+        return branchService.addBranch(branch);
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping("/branch/{id}")
+    @ResponseBody
+    public Boolean updateBranch(@RequestBody Branch branch){
+        log.info(String.valueOf(branch));
+        return branchService.updateBranch(branch);
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @DeleteMapping("/branch/{id}")
+    @ResponseBody
+    public Boolean deleteBranch(@PathVariable Integer id){
+        log.info(String.valueOf(id));
+        return branchService.deleteBranch(id);
+    }
+
+
 }

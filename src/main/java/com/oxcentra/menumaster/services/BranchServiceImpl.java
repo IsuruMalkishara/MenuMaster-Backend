@@ -21,7 +21,7 @@ public class BranchServiceImpl implements BranchService{
     public List<Branch> getBranchByBusinessId(Integer id) {
         List<Branch> branchList=new ArrayList<>();
         branchList=branchRepository.findAll().stream().filter(b->
-               id.equals(b.getBusiness().getId())).collect(Collectors.toList());
+               id.equals(b.getBusiness())).collect(Collectors.toList());
 
         return branchList;
     }
@@ -29,5 +29,33 @@ public class BranchServiceImpl implements BranchService{
     @Override
     public Optional<Branch> getBranchById(Integer id) {
         return branchRepository.findById(id);
+    }
+
+    @Override
+    public Boolean addBranch(Branch branch) {
+        log.info(String.valueOf(branch.getId()));
+        log.info(String.valueOf(branch));
+        branchRepository.save(branch);
+        return true;
+    }
+
+    @Override
+    public Boolean updateBranch(Branch branch) {
+        Optional<Branch> branch1;
+        branch1=branchRepository.findById(branch.getId());
+        branch.setBackground(branch1.get().getBackground());
+        branch.setBusiness(branch1.get().getBusiness());
+        branch.setStatus(branch1.get().getStatus());
+        branch.setQrcode(branch1.get().getQrcode());
+        log.info(String.valueOf(branch));
+        branchRepository.save(branch);
+        return true;
+    }
+
+    @Override
+    public Boolean deleteBranch(Integer id) {
+        log.info("Delete branch id "+id);
+        branchRepository.deleteById(id);
+        return true;
     }
 }
