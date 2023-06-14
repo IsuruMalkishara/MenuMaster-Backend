@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -25,5 +26,10 @@ public class MenuServiceImpl implements MenuService{
                 id.equals(m.getBranch().getId())).collect(Collectors.toList());
 
         return menuList;
+    }
+
+    @Override
+    public Optional<Menu> getMenusById(Integer id) {
+        return menuRepository.findById(id);
     }
 }

@@ -39,4 +39,7 @@ public class Business {
 
     @Column(name="status")
     private String status;
+
+    @Column(name="background")
+    private String background;
 }
