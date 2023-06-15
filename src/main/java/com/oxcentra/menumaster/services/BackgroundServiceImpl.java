@@ -65,6 +65,7 @@ public class BackgroundServiceImpl implements BackgroundService{
 
     @Override
     public Boolean updateBackgroundByBranchId(BackgroundDto backgroundDto) {
+        log.info("branch id: "+backgroundDto.getId());
         Optional<Branch> optionalBranch = branchRepository.findById(backgroundDto.getId());
         Branch branch = optionalBranch.orElse(null);
         branch.setBackground(backgroundDto.getBackground());

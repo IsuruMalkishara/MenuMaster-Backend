@@ -25,4 +25,7 @@ public class Category {
     @ManyToOne
     @JoinColumn(name="menu_id")
     private Menu menu;
+
+    @Column(name="banner_img")
+    private String bannerImg;
 }

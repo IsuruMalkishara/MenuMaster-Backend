@@ -36,5 +36,5 @@ public class Item {
     private Double discount;
 
     @Column(name="banner_image")
-    private String banner_img;
+    private String bannerImg;
 }

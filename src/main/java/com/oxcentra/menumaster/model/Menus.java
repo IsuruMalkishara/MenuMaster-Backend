@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="menu")
-public class Menu {
+public class Menus {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,9 +22,9 @@ public class Menu {
     @Column(name="name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name="branch_id")
-    private Branch branch;
+
+    @Column(name="branch_id")
+    private int branch;
 
     @Column(name="banner_img")
     private String bannerImg;

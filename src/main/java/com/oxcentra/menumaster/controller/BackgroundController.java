@@ -52,6 +52,7 @@ public class BackgroundController {
     @ResponseBody
     public Boolean updateBackgroundByBranchId(@RequestBody BackgroundDto backgroundDto){
         log.info(backgroundDto.getBackground());
+        log.info("id: "+backgroundDto.getId());
         return backgroundService.updateBackgroundByBranchId(backgroundDto);
     }
 

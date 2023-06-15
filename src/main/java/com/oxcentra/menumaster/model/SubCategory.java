@@ -25,4 +25,7 @@ public class SubCategory {
     @ManyToOne
     @JoinColumn(name="category_id")
     private Category category;
+
+    @Column(name="banner_img")
+    private String bannerImg;
 }
