@@ -1,7 +1,5 @@
 package com.oxcentra.menumaster.controller;
 
-import com.oxcentra.menumaster.model.Menu;
-import com.oxcentra.menumaster.model.SubCategories;
 import com.oxcentra.menumaster.model.SubCategory;
 import com.oxcentra.menumaster.services.SubCategoryService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,17 +34,17 @@ public class SubCategoryController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/subcategory")
     @ResponseBody
-    public Boolean addSubCategory(@RequestBody SubCategories subCategories){
-        log.info(subCategories.getName());
-        return subCategoryService.addSubCategory(subCategories);
+    public Boolean addSubCategory(@RequestBody SubCategory subCategory){
+        log.info(subCategory.getName());
+        return subCategoryService.addSubCategory(subCategory);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/subcategory/{id}")
     @ResponseBody
-    public Boolean updateSubCategory(@RequestBody SubCategories subCategories){
-        log.info(subCategories.getName());
-        return subCategoryService.updateSubCategory(subCategories);
+    public Boolean updateSubCategory(@RequestBody SubCategory subCategory){
+        log.info(subCategory.getName());
+        return subCategoryService.updateSubCategory(subCategory);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")

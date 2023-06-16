@@ -22,9 +22,9 @@ public class Menu {
     @Column(name="name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name="branch_id")
-    private Branch branch;
+
+    @Column(name="branch_id")
+    private int branch;
 
     @Column(name="banner_img")
     private String bannerImg;

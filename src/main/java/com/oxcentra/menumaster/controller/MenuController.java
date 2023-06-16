@@ -1,7 +1,6 @@
 package com.oxcentra.menumaster.controller;
 
 import com.oxcentra.menumaster.model.Menu;
-import com.oxcentra.menumaster.model.Menus;
 import com.oxcentra.menumaster.services.MenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,7 @@ public class MenuController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/menu")
     @ResponseBody
-    public Boolean addMenu(@RequestBody Menus menu){
+    public Boolean addMenu(@RequestBody Menu menu){
         log.info(menu.getName());
         return menuService.addMenu(menu);
     }
@@ -42,7 +41,7 @@ public class MenuController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/menu/{id}")
     @ResponseBody
-    public Boolean updateMenu(@RequestBody Menus menu){
+    public Boolean updateMenu(@RequestBody Menu menu){
         log.info(menu.getName());
         return menuService.updateMenu(menu);
     }

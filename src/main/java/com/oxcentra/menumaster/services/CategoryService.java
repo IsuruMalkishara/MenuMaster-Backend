@@ -1,6 +1,5 @@
 package com.oxcentra.menumaster.services;
 
-import com.oxcentra.menumaster.model.Categories;
 import com.oxcentra.menumaster.model.Category;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +12,9 @@ public interface CategoryService {
 
     Optional<Category> getCategoryById(Integer id);
 
-    Boolean addCategories(Categories categories);
+    Boolean addCategories(Category categories);
 
-    Boolean updateCategory(Categories categories);
+    Boolean updateCategory(Category categories);
 
     Boolean deleteCategory(Integer id);
 }

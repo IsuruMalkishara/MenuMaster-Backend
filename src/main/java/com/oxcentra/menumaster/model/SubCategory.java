@@ -22,9 +22,9 @@ public class SubCategory {
     @Column(name="name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name="category_id")
-    private Category category;
+
+    @Column(name="category_id")
+    private int category;
 
     @Column(name="banner_img")
     private String bannerImg;

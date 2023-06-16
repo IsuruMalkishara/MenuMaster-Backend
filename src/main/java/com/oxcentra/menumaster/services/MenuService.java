@@ -1,7 +1,6 @@
 package com.oxcentra.menumaster.services;
 
 import com.oxcentra.menumaster.model.Menu;
-import com.oxcentra.menumaster.model.Menus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +12,9 @@ public interface MenuService {
 
     Optional<Menu> getMenusById(Integer id);
 
-    Boolean addMenu(Menus menu);
+    Boolean addMenu(Menu menu);
 
-    Boolean updateMenu(Menus menu);
+    Boolean updateMenu(Menu menu);
 
     Boolean deleteMenu(Integer id);
 }

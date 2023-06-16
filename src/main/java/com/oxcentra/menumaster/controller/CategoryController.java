@@ -1,6 +1,5 @@
 package com.oxcentra.menumaster.controller;
 
-import com.oxcentra.menumaster.model.Categories;
 import com.oxcentra.menumaster.model.Category;
 import com.oxcentra.menumaster.services.CategoryService;
 import lombok.extern.slf4j.Slf4j;
@@ -35,17 +34,17 @@ public class CategoryController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/category")
     @ResponseBody
-    public Boolean addCategory(@RequestBody Categories categories){
-        log.info(categories.getName());
-        return categoryService.addCategories(categories);
+    public Boolean addCategory(@RequestBody Category category){
+        log.info(category.getName());
+        return categoryService.addCategories(category);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/category/{id}")
     @ResponseBody
-    public Boolean updateCategory(@RequestBody Categories categories){
-        log.info(categories.getName());
-        return categoryService.updateCategory(categories);
+    public Boolean updateCategory(@RequestBody Category category){
+        log.info(category.getName());
+        return categoryService.updateCategory(category);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")

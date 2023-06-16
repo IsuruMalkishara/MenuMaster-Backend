@@ -22,9 +22,8 @@ public class Category {
     @Column(name="name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name="menu_id")
-    private Menu menu;
+    @Column(name="menu_id")
+    private int menu;
 
     @Column(name="banner_img")
     private String bannerImg;

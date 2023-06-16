@@ -1,9 +1,6 @@
 package com.oxcentra.menumaster.services;
 
-import com.oxcentra.menumaster.model.Menu;
-import com.oxcentra.menumaster.model.SubCategories;
 import com.oxcentra.menumaster.model.SubCategory;
-import com.oxcentra.menumaster.repository.SubCategoriesRepository;
 import com.oxcentra.menumaster.repository.SubCategoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +17,13 @@ public class SubCategoryServiceImpl implements SubCategoryService{
     @Autowired
     private SubCategoryRepository subCategoryRepository;
 
-    @Autowired
-    private SubCategoriesRepository subCategoriesRepository;
 
     @Override
     public List<SubCategory> getSubCategoriesByCategoryId(Integer id) {
         log.info(String.valueOf(id));
         List<SubCategory> subCategoryList=new ArrayList<>();
         subCategoryList=subCategoryRepository.findAll().stream().filter(c->
-                id.equals(c.getCategory().getId())).collect(Collectors.toList());
+                id.equals(c.getCategory())).collect(Collectors.toList());
 
         return subCategoryList;
     }
@@ -40,23 +35,23 @@ public class SubCategoryServiceImpl implements SubCategoryService{
     }
 
     @Override
-    public Boolean addSubCategory(SubCategories subCategories) {
-        log.info(subCategories.getName());
-        subCategoriesRepository.save(subCategories);
+    public Boolean addSubCategory(SubCategory subCategory) {
+        log.info(subCategory.getName());
+        subCategoryRepository.save(subCategory);
         return true;
     }
 
     @Override
-    public Boolean updateSubCategory(SubCategories subCategories) {
-        Optional<SubCategories> subCategories1=subCategoriesRepository.findById(subCategories.getId());
-        subCategories.setCategory(subCategories1.get().getCategory());
-        subCategoriesRepository.save(subCategories);
+    public Boolean updateSubCategory(SubCategory subCategory) {
+        Optional<SubCategory> subCategories1=subCategoryRepository.findById(subCategory.getId());
+        subCategory.setCategory(subCategories1.get().getCategory());
+        subCategoryRepository.save(subCategory);
         return true;
     }
 
     @Override
     public Boolean deleteSubCategory(Integer id) {
-        subCategoriesRepository.deleteById(id);
+        subCategoryRepository.deleteById(id);
         return true;
     }
 }

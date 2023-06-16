@@ -1,6 +1,5 @@
 package com.oxcentra.menumaster.services;
 
-import com.oxcentra.menumaster.model.SubCategories;
 import com.oxcentra.menumaster.model.SubCategory;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +12,9 @@ public interface SubCategoryService {
 
     Optional<SubCategory> getSubCategoryById(Integer id);
 
-    Boolean addSubCategory(SubCategories subCategories);
+    Boolean addSubCategory(SubCategory subCategory);
 
-    Boolean updateSubCategory(SubCategories subCategories);
+    Boolean updateSubCategory(SubCategory subCategory);
 
     Boolean deleteSubCategory(Integer id);
 }

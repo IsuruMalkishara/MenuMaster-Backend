@@ -1,9 +1,9 @@
 package com.oxcentra.menumaster.repository;
 
-import com.oxcentra.menumaster.model.Item;
+import com.oxcentra.menumaster.model.Items;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ItemRepository extends JpaRepository<Item,Integer> {
+public interface ItemsRepository extends JpaRepository<Items,Integer> {
 }
