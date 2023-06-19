@@ -17,4 +17,6 @@ public interface SubCategoryService {
     Boolean updateSubCategory(SubCategory subCategory);
 
     Boolean deleteSubCategory(Integer id);
+
+    Boolean deleteSubCategoryByCategoryId(Integer id);
 }

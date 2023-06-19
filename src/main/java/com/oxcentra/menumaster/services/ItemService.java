@@ -16,4 +16,8 @@ public interface ItemService {
     Boolean updateItem(Items items);
 
     Boolean deleteItemById(Integer id);
+
+    Boolean deleteItemsBySubCategoryId(Integer id);
+
+    Boolean deleteItemsByCategoryId(Integer id);
 }

@@ -86,4 +86,22 @@ public class ItemServiceImpl implements ItemService{
         itemsRepository.deleteById(id);
         return true;
     }
+
+    @Override
+    public Boolean deleteItemsBySubCategoryId(Integer id) {
+        List<Items> itemsList=getItemsBySubCategoryId(id);
+        for(int i=0;i<itemsList.size();i++){
+            deleteItemById(itemsList.get(i).getId());
+        }
+        return true;
+    }
+
+    @Override
+    public Boolean deleteItemsByCategoryId(Integer id) {
+        List<Items> itemsList=getItemsByCategoryId(id);
+        for(int i=0;i<itemsList.size();i++){
+            deleteItemById(itemsList.get(i).getId());
+        }
+        return true;
+    }
 }

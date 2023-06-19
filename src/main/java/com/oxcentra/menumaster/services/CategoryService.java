@@ -17,4 +17,6 @@ public interface CategoryService {
     Boolean updateCategory(Category categories);
 
     Boolean deleteCategory(Integer id);
+
+    Boolean deleteCategoryByMenyId(Integer id);
 }

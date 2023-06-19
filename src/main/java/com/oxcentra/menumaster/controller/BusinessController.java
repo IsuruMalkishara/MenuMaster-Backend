@@ -88,4 +88,12 @@ public class BusinessController {
         log.info(String.valueOf(id));
         return businessService.getBusinessById(id);
     }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping("/user/{id}")
+    @ResponseBody
+    public Boolean updateUserById(@RequestBody Business business){
+        log.info(business.getName());
+        return businessService.updateBusinessById(business);
+    }
 }

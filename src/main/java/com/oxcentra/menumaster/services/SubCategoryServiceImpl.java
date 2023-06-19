@@ -1,5 +1,6 @@
 package com.oxcentra.menumaster.services;
 
+import com.oxcentra.menumaster.model.Items;
 import com.oxcentra.menumaster.model.SubCategory;
 import com.oxcentra.menumaster.repository.SubCategoryRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,8 @@ public class SubCategoryServiceImpl implements SubCategoryService{
     @Autowired
     private SubCategoryRepository subCategoryRepository;
 
+    @Autowired
+    private ItemService itemService;
 
     @Override
     public List<SubCategory> getSubCategoriesByCategoryId(Integer id) {
@@ -51,7 +54,25 @@ public class SubCategoryServiceImpl implements SubCategoryService{
 
     @Override
     public Boolean deleteSubCategory(Integer id) {
-        subCategoryRepository.deleteById(id);
+        List<Items> itemsList=itemService.getItemsBySubCategoryId(id);
+        if(itemsList.size()>0){
+            Boolean result=itemService.deleteItemsBySubCategoryId(id);
+            if(result){
+                subCategoryRepository.deleteById(id);
+            }
+        }else{
+            subCategoryRepository.deleteById(id);
+        }
+
+        return true;
+    }
+
+    @Override
+    public Boolean deleteSubCategoryByCategoryId(Integer id) {
+        List<SubCategory> subCategoryList=getSubCategoriesByCategoryId(id);
+        for(int i=0;i<subCategoryList.size();i++){
+            deleteSubCategory(subCategoryList.get(i).getId());
+        }
         return true;
     }
 }

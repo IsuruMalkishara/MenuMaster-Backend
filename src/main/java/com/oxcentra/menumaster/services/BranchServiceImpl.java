@@ -1,6 +1,7 @@
 package com.oxcentra.menumaster.services;
 
 import com.oxcentra.menumaster.model.Branch;
+import com.oxcentra.menumaster.model.Menu;
 import com.oxcentra.menumaster.repository.BranchRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ import java.util.stream.Collectors;
 public class BranchServiceImpl implements BranchService{
     @Autowired
     private BranchRepository branchRepository;
+
+    @Autowired
+    private MenuService menuService;
 
     @Override
     public List<Branch> getBranchByBusinessId(Integer id) {
@@ -55,7 +59,18 @@ public class BranchServiceImpl implements BranchService{
     @Override
     public Boolean deleteBranch(Integer id) {
         log.info("Delete branch id "+id);
-        branchRepository.deleteById(id);
+        List<Menu> menuList=menuService.getMenusByBranchId(id);
+
+        if(menuList.size()>0){
+            Boolean result=menuService.deleteMenuByBranchId(id);
+            if(result){
+                branchRepository.deleteById(id);
+            }
+        }else{
+            branchRepository.deleteById(id);
+        }
+
+
         return true;
     }
 }

@@ -18,4 +18,6 @@ public interface BusinessService extends UserDetailsService {
     Boolean addNewBusiness(Business business);
 
     Optional<Business> getBusinessById(int id);
+
+    Boolean updateBusinessById(Business business);
 }

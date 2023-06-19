@@ -61,4 +61,16 @@ public class BusinessServiceImpl implements BusinessService {
         log.info("Get business by id: "+id);
         return businessRepository.findById(id);
     }
+
+    @Override
+    public Boolean updateBusinessById(Business business) {
+        Optional<Business> business1=getBusinessById(business.getId());
+        business.setBackground(business1.get().getBackground());
+        business.setPassword(business1.get().getPassword());
+        if(business.getLogo()==null){
+            business.setLogo(business1.get().getLogo());
+        }
+        businessRepository.save(business);
+        return true;
+    }
 }

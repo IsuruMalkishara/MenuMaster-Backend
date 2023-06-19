@@ -1,5 +1,6 @@
 package com.oxcentra.menumaster.services;
 
+import com.oxcentra.menumaster.model.Category;
 import com.oxcentra.menumaster.model.Menu;
 import com.oxcentra.menumaster.repository.MenuRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,8 @@ public class MenuServiceImpl implements MenuService{
     @Autowired
     private MenuRepository menuRepository;
 
+    @Autowired
+    private CategoryService categoryService;
 
     @Override
     public List<Menu> getMenusByBranchId(Integer id) {
@@ -52,7 +55,25 @@ public class MenuServiceImpl implements MenuService{
 
     @Override
     public Boolean deleteMenu(Integer id) {
-        menuRepository.deleteById(id);
+        List<Category> categoryList=categoryService.getCategoriesByMenuId(id);
+        if(categoryList.size()>0){
+            Boolean result=categoryService.deleteCategoryByMenyId(id);
+            if(result) {
+                menuRepository.deleteById(id);
+            }
+        }else{
+            menuRepository.deleteById(id);
+        }
+
+        return true;
+    }
+
+    @Override
+    public Boolean deleteMenuByBranchId(Integer id) {
+        List<Menu> menuList=getMenusByBranchId(id);
+        for(int i=0;i<menuList.size();i++){
+            deleteMenu(menuList.get(i).getId());
+        }
         return true;
     }
 }

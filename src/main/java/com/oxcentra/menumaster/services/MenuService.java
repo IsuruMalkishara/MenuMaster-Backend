@@ -17,4 +17,6 @@ public interface MenuService {
     Boolean updateMenu(Menu menu);
 
     Boolean deleteMenu(Integer id);
+
+    Boolean deleteMenuByBranchId(Integer id);
 }

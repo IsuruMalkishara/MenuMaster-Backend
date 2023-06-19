@@ -1,6 +1,8 @@
 package com.oxcentra.menumaster.services;
 
 import com.oxcentra.menumaster.model.Category;
+import com.oxcentra.menumaster.model.Items;
+import com.oxcentra.menumaster.model.SubCategory;
 import com.oxcentra.menumaster.repository.CategoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,11 @@ public class CategoryServiceImpl implements CategoryService{
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private SubCategoryService subCategoryService;
+
+    @Autowired
+    private ItemService itemService;
 
     @Override
     public List<Category> getCategoriesByMenuId(Integer id) {
@@ -48,7 +55,31 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public Boolean deleteCategory(Integer id) {
-        categoryRepository.deleteById(id);
+        List<SubCategory> subCategoryList=subCategoryService.getSubCategoriesByCategoryId(id);
+        List<Items> itemsList=itemService.getItemsByCategoryId(id);
+        if(subCategoryList.size()>0){
+            Boolean result=subCategoryService.deleteSubCategoryByCategoryId(id);
+            if(result){
+                categoryRepository.deleteById(id);
+            }
+        }else if(itemsList.size()>0){
+            Boolean result=itemService.deleteItemsByCategoryId(id);
+            if(result){
+                categoryRepository.deleteById(id);
+            }
+        }else{
+            categoryRepository.deleteById(id);
+        }
+
+        return true;
+    }
+
+    @Override
+    public Boolean deleteCategoryByMenyId(Integer id) {
+        List<Category> categoryList=getCategoriesByMenuId(id);
+        for(int i=0;i<categoryList.size();i++){
+            deleteCategory(categoryList.get(i).getId());
+        }
         return true;
     }
 }
