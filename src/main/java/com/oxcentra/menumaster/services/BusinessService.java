@@ -17,7 +17,13 @@ public interface BusinessService extends UserDetailsService {
 
     Boolean addNewBusiness(Business business);
 
+    Boolean sendVerificationCode();
+
     Optional<Business> getBusinessById(int id);
 
     Boolean updateBusinessById(Business business);
+
+    Boolean verifyEmail(Integer code);
+
+    Boolean saveBusiness();
 }

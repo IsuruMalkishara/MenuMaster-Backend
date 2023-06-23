@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -21,7 +22,13 @@ public class BusinessServiceImpl implements BusinessService {
     @Autowired
     private BusinessRepository businessRepository;
 
+    @Autowired
+     private EmailService emailService;
+
     List<Business> business=new ArrayList<>();
+
+    private Business businessNew;
+    private int verificationCode;
 
     @Override
     public Business getUserByEmail(String email) {
@@ -51,9 +58,42 @@ public class BusinessServiceImpl implements BusinessService {
 
     @Override
     public Boolean addNewBusiness(Business business) {
+        String message;
+        Boolean val;
         log.info("saved business: "+business.getName());
-        businessRepository.save(business);
-        return true;
+        //businessRepository.save(business);
+        businessNew=business;
+        if(sendVerificationCode().equals(true)) {
+
+            message ="Verification code sent";
+            val = true;
+        }else{
+            message =  " error";
+            val = false;
+        }
+
+        log.info(message);
+        return val;
+    }
+
+    @Override
+    public Boolean sendVerificationCode(){
+        log.info(businessNew.getEmail());
+        Random random = new Random();
+        verificationCode = random.nextInt(90000000) + 10000000;
+        log.info(String.valueOf(verificationCode));
+        String body="Verification code: "+verificationCode;
+        String subject="Verification Code";
+        log.info(body);
+        
+
+        if(emailService.sendEmail(businessNew.getEmail(),body,subject).equals(true)){
+            log.info("verification code sent");
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
     @Override
@@ -71,6 +111,27 @@ public class BusinessServiceImpl implements BusinessService {
             business.setLogo(business1.get().getLogo());
         }
         businessRepository.save(business);
+        return true;
+    }
+
+    @Override
+    public Boolean verifyEmail(Integer code) {
+        log.info(String.valueOf(code));
+        log.info(String.valueOf(verificationCode));
+        if(code.equals(verificationCode)){
+            log.info("saved");
+            return saveBusiness();
+        }else{
+            log.info("didn't saved");
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean saveBusiness() {
+
+        businessRepository.save(businessNew);
+        log.info("saved "+businessNew.getName());
         return true;
     }
 }
