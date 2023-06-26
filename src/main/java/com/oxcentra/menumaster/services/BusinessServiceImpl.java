@@ -29,6 +29,7 @@ public class BusinessServiceImpl implements BusinessService {
 
     private Business businessNew;
     private int verificationCode;
+    private String email;
 
     @Override
     public Business getUserByEmail(String email) {
@@ -57,28 +58,38 @@ public class BusinessServiceImpl implements BusinessService {
     }
 
     @Override
-    public Boolean addNewBusiness(Business business) {
+    public Boolean addNewBusiness(Business business1) {
         String message;
         Boolean val;
-        log.info("saved business: "+business.getName());
+        log.info("saved business: "+business1.getName());
         //businessRepository.save(business);
-        businessNew=business;
-        if(sendVerificationCode().equals(true)) {
+        businessNew=business1;
+        email=business1.getEmail();
 
-            message ="Verification code sent";
-            val = true;
+        business=businessRepository.findAll().stream().filter(b->
+                email.contains(b.getEmail())).collect(Collectors.toList());
+        if(business.size()==0) {
+            if (sendVerificationCode().equals(true)) {
+
+                message = "Verification code sent";
+                val = true;
+            } else {
+                message = " error";
+                val = false;
+            }
+
+
+            log.info(message);
+            return val;
         }else{
-            message =  " error";
-            val = false;
+            log.info("Email address already used");
+            return false;
         }
-
-        log.info(message);
-        return val;
     }
 
     @Override
     public Boolean sendVerificationCode(){
-        log.info(businessNew.getEmail());
+        log.info(email);
         Random random = new Random();
         verificationCode = random.nextInt(90000000) + 10000000;
         log.info(String.valueOf(verificationCode));
@@ -87,7 +98,7 @@ public class BusinessServiceImpl implements BusinessService {
         log.info(body);
         
 
-        if(emailService.sendEmail(businessNew.getEmail(),body,subject).equals(true)){
+        if(emailService.sendEmail(email,body,subject).equals(true)){
             log.info("verification code sent");
             return true;
         }else{
@@ -133,5 +144,59 @@ public class BusinessServiceImpl implements BusinessService {
         businessRepository.save(businessNew);
         log.info("saved "+businessNew.getName());
         return true;
+    }
+
+    @Override
+    public Boolean resetPassowrd(String email1) {
+        List<Business> business1;
+        String message;
+        Boolean val;
+
+        business1=businessRepository.findAll().stream().filter(b->
+                email1.contains(b.getEmail())).collect(Collectors.toList());
+
+        if(business1.size()!=0) {
+            email = email1;
+            if (sendVerificationCode().equals(true)) {
+
+                message = "Verification code sent";
+                val = true;
+            } else {
+                message = " error";
+                val = false;
+            }
+
+            log.info(message);
+            return val;
+
+        }else{
+            log.info("email not found");
+            return false;
+        }
+
+
+    }
+
+    @Override
+    public Boolean updatePassword(String password) {
+        Business business=businessRepository.findByEmail(email);
+        log.info(String.valueOf(business));
+       business.setPassword(password);
+        log.info(String.valueOf(business));
+        businessRepository.save(business);
+        return true;
+    }
+
+    @Override
+    public Boolean verifyEmailForResetPassowrd(Integer code) {
+        log.info(String.valueOf(code));
+        log.info(String.valueOf(verificationCode));
+        if(code.equals(verificationCode)){
+            log.info("verified");
+            return true;
+        }else{
+            log.info("not verified");
+            return false;
+        }
     }
 }

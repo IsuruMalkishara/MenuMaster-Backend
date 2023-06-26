@@ -26,4 +26,10 @@ public interface BusinessService extends UserDetailsService {
     Boolean verifyEmail(Integer code);
 
     Boolean saveBusiness();
+
+    Boolean resetPassowrd(String email);
+
+    Boolean updatePassword(String password);
+
+    Boolean verifyEmailForResetPassowrd(Integer code);
 }

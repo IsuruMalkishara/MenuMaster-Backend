@@ -96,4 +96,12 @@ public class BusinessController {
         log.info(business.getName());
         return businessService.updateBusinessById(business);
     }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/reset")
+    @ResponseBody
+    public Boolean updatePassword(@RequestBody String password){
+        log.info(password);
+        return businessService.updatePassword(password);
+    }
 }
