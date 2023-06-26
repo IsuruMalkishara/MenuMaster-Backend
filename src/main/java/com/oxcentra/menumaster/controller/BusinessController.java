@@ -3,6 +3,7 @@ package com.oxcentra.menumaster.controller;
 import com.oxcentra.menumaster.common.JwtUtility;
 import com.oxcentra.menumaster.dto.JwtRequestDto;
 import com.oxcentra.menumaster.dto.JwtResponseDto;
+import com.oxcentra.menumaster.dto.PasswordDto;
 import com.oxcentra.menumaster.model.Business;
 import com.oxcentra.menumaster.services.BusinessService;
 import lombok.extern.slf4j.Slf4j;
@@ -100,8 +101,8 @@ public class BusinessController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/reset")
     @ResponseBody
-    public Boolean updatePassword(@RequestBody String password){
-        log.info(password);
-        return businessService.updatePassword(password);
+    public Boolean updatePassword(@RequestBody PasswordDto passwordDto){
+        log.info(passwordDto.getPassword());
+        return businessService.updatePassword(passwordDto.getPassword());
     }
 }
